@@ -64,7 +64,7 @@ const images = [
   },
 ];
 
-const listEl = document.querySelector(".gallery");
+const galleryEl = document.querySelector(".gallery");
 
 function imgTemplate({ preview, original, description }) {
   return `<li class="gallery-item">
@@ -83,23 +83,24 @@ function imgsTemplate(arr) {
   return arr.map(imgTemplate).join("");
 }
 
-function renderImg() {
+function renderImgs() {
   const markup = imgsTemplate(images);
-  listEl.innerHTML = markup;
+  galleryEl.innerHTML = markup;
 }
 
-renderImg();
+renderImgs();
 
-listEl.addEventListener("click", (e) => {
+galleryEl.addEventListener("click", (e) => {
   e.preventDefault();
-  if (e.target.nodeName !== "IMG") return;
 
-  const origImgURL = e.target.dataset.source;
-  console.log(origImgURL);
+  if (e.target.nodeName !== "IMG") return;
+  console.log("click IMG");
+
+  const origImgForModal = e.target.dataset.source;
 
   const instance = basicLightbox.create(`
-    <img src="${origImgURL}" width="800" height="600">
-  `);
+    <img src="${origImgForModal}" width="800" height="600">
+`);
 
   instance.show();
 });
